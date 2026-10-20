@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Use — Renevo</title>
+<meta name="title-en" content="Terms of Use — Renevo">
+<meta name="title-ru" content="Условия использования — Renevo">
+<meta name="description" content="Terms of Use for the Renevo app.">
+<style>
+/* Renevo:浅色/深色自适应,手机优先。本页自带样式,不依赖外部文件。 */
+:root {
+  --bg: #f2f5f3;
+  --surface: #ffffff;
+  --fg: #14201c;
+  --muted: #5b6b65;
+  --line: #d3dcd8;
+  --accent: #0e7c66;
+  --accent-soft: #d6efe8;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1412;
+    --surface: #17211e;
+    --fg: #e6efeb;
+    --muted: #93a59e;
+    --line: #2b3a35;
+    --accent: #3dd9b0;
+    --accent-soft: #14382f;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0 20px 80px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 720px; margin: 0 auto; }
+header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 32px 0 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #16a58b, #0a5545);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.mark svg { width: 26px; height: 26px; }
+header h1 { font-size: 20px; margin: 0; letter-spacing: -0.01em; }
+header .sub { color: var(--muted); font-size: 14px; margin: 2px 0 0; }
+h2 { font-size: 22px; margin: 40px 0 12px; letter-spacing: -0.01em; }
+h2:first-of-type { margin-top: 0; }
+h3 { font-size: 17px; margin: 28px 0 8px; }
+p, li { color: var(--fg); }
+.lede { font-size: 18px; color: var(--muted); }
+.meta { color: var(--muted); font-size: 14px; margin: 0 0 32px; }
+ul, ol { padding-left: 22px; }
+li { margin: 6px 0; }
+a { color: var(--accent); }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+.card h3 { margin-top: 0; }
+.card p:last-child, .card ul:last-child { margin-bottom: 0; }
+.highlight {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 24px 0;
+}
+.highlight p { margin: 0; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 20px 0; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.scroll { overflow-x: auto; }
+footer {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+}
+footer a { color: var(--muted); }
+/* 语言切换:默认英文可见(没有 JS 时也能读),下面的脚本按语言代码切换 */
+[data-lang="ru"] { display: none; }
+html.lang-ru [data-lang="ru"] { display: revert; }
+html.lang-ru [data-lang="en"] { display: none; }
+</style>
+<script>
+/* 语言切换:?lang=ru 或 ?lang=en;没有参数时按浏览器语言,默认英文。
+   在 <head> 里同步执行,避免切换时闪烁。 */
+(function () {
+  var supported = ["en", "ru"];
+
+  function requested() {
+    var match = /[?&]lang=([a-zA-Z-]+)/.exec(location.search) ||
+                /^#(?:lang=)?([a-zA-Z-]+)$/.exec(location.hash);
+    return match ? match[1] : null;
+  }
+
+  function normalize(code) {
+    if (!code) return null;
+    code = code.toLowerCase().split("-")[0];
+    return supported.indexOf(code) >= 0 ? code : null;
+  }
+
+  var lang = normalize(requested());
+  if (!lang) {
+    var list = navigator.languages || [navigator.language];
+    for (var i = 0; i < list.length && !lang; i++) lang = normalize(list[i]);
+  }
+  if (!lang) lang = "en";
+
+  var root = document.documentElement;
+  root.setAttribute("lang", lang);
+  root.className = (root.className || "").replace(/\blang-\w+\b/g, "").trim() + " lang-" + lang;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var title = document.querySelector('meta[name="title-' + lang + '"]');
+    if (title) document.title = title.getAttribute("content");
+
+    var other = lang === "ru" ? "en" : "ru";
+    var links = document.querySelectorAll("[data-lang-switch]");
+    for (var i = 0; i < links.length; i++) {
+      links[i].setAttribute("href", location.pathname + "?lang=" + other);
+    }
+  });
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round">
+      <path d="M12 3.2a8.8 8.8 0 1 0 8.4 6.1"></path>
+      <circle cx="12" cy="12" r="2.6" fill="#fff" stroke="none"></circle>
+    </svg>
+  </div>
+  <div>
+    <h1>Renevo</h1>
+    <p class="sub"><span data-lang="en">Terms of Use</span><span data-lang="ru">Условия использования</span></p>
+  </div>
+</header>
+
+<!-- ===================== English ===================== -->
+<div data-lang="en">
+
+<p class="meta">Last updated: 20 October 2026</p>
+
+<p class="lede">By downloading or using Renevo, you agree to these terms. If you do not agree, please do not use the app.</p>
+
+<h2>1. The app</h2>
+<p>Renevo (“the app”) is an iOS application published by QUNATUMLEAP INNOVATION INTERNATIONAL LTD (“we”, “us”). It helps you record subscriptions and everyday expenses, see what you spend, and get reminders before a charge. The app is provided free of charge. It contains no advertising and no in-app purchases.</p>
+
+<h2>2. Licence</h2>
+<p>We grant you a personal, non-exclusive, non-transferable licence to use the app on Apple devices that you own or control, as permitted by the App Store Terms of Service. You may not copy, modify, reverse engineer, redistribute, or sell the app, except to the extent that applicable law expressly permits it.</p>
+
+<h2>3. Your data is your responsibility</h2>
+<p>Everything you enter stays on your device, and optionally in your own iCloud account. We have no copy of it and cannot restore it for you.</p>
+<ul>
+  <li>If you delete the app, your local data is deleted with it.</li>
+  <li>If iCloud sync is off, your data exists only on that one device.</li>
+  <li>We recommend keeping iCloud sync on, or keeping your own records, for anything you would not want to lose.</li>
+</ul>
+
+<h2>4. The app does not manage your subscriptions</h2>
+<p>This is important. Renevo is a record-keeping and reminder tool. It is not connected to your bank, your card, or the services you subscribe to.</p>
+<ul>
+  <li>The app cannot charge you, pay anyone, start a subscription, or cancel a subscription on your behalf.</li>
+  <li>Figures in the app reflect only what you entered. They are not a bank statement.</li>
+  <li>Marking a subscription as inactive in the app changes nothing with the actual service. You must cancel with that service yourself.</li>
+  <li>Reminders are a convenience. Do not rely on them alone to avoid a charge.</li>
+</ul>
+
+<h2>5. Cancellation guides</h2>
+<p>The app includes general guidance and official links for cancelling common services. These are provided for convenience only.</p>
+<ul>
+  <li>We are not affiliated with, endorsed by, or sponsored by any of the services mentioned. Names are used only to identify the service.</li>
+  <li>Services change their websites and procedures without notice, so steps and links may become outdated or incorrect.</li>
+  <li>Always confirm the current procedure on the service’s own website, and keep any confirmation they give you.</li>
+</ul>
+
+<h2>6. Receipt scanning</h2>
+<p>Receipt scanning uses on-device text recognition. Recognition is not perfect, especially with creased, faded, or poorly lit receipts. The app shows you what it read so that you can check and correct it before saving. You are responsible for the accuracy of what you save.</p>
+
+<h2>7. No financial advice</h2>
+<p>The app presents totals, charts, and estimates based on the information you enter. This is not financial, tax, accounting, or legal advice. Currency conversion uses exchange rates that you enter by hand and are used only to produce approximate totals; they are not live market rates. Decisions you make based on the app are your own.</p>
+
+<h2>8. Provided “as is”</h2>
+<p>The app is provided as is and as available, without warranties of any kind, whether express or implied, including any implied warranties of merchantability, fitness for a particular purpose, accuracy, or non-infringement. We do not warrant that the app will be uninterrupted, error-free, or that reminders will always be delivered on time.</p>
+
+<h2>9. Limitation of liability</h2>
+<p>To the fullest extent permitted by law, we are not liable for any indirect, incidental, special, or consequential damages, or for any loss of data, profits, or savings, arising from your use of or inability to use the app. This includes charges you incur because a reminder did not reach you or a cancellation guide was out of date. Some jurisdictions do not allow certain limitations, so parts of this section may not apply to you, and nothing here limits liability that cannot be limited by law.</p>
+
+<h2>10. Changes to the app and these terms</h2>
+<p>We may update the app, add or remove features, or stop publishing it at any time. We may also update these terms; the date at the top shows when they last changed. Continuing to use the app after a change means you accept the updated terms.</p>
+
+<h2>11. Apple</h2>
+<p>Apple is not a party to these terms and has no obligation to provide support for the app. Your use of the app is also subject to the App Store Terms of Service. Apple and its subsidiaries are third-party beneficiaries of these terms and may enforce them against you.</p>
+
+<h2>12. Governing law</h2>
+<p>These terms are governed by the laws of {{JURISDICTION}}, without regard to its conflict-of-law rules. This does not deprive you of the protection of mandatory consumer law in your country of residence.</p>
+
+<h2>13. Contact</h2>
+<p>Questions about these terms: <a href="mailto:qlinnovation@outlook.com">qlinnovation@outlook.com</a></p>
+
+<footer>
+  <p>Renevo · <a href="../">Home</a> · <a href="../privacy/">Privacy Policy</a> · <a href="../support/">Support</a> · <a href="?lang=ru" data-lang-switch>Русская версия</a></p>
+</footer>
+
+</div>
+
+<!-- ===================== Русский ===================== -->
+<div data-lang="ru">
+
+<p class="meta">Обновлено: 20 октября 2026 г.</p>
+
+<p class="lede">Загружая или используя Renevo, вы соглашаетесь с этими условиями. Если вы с ними не согласны, не используйте приложение.</p>
+
+<h2>1. О приложении</h2>
+<p>Renevo («приложение») — приложение для iOS, выпускаемое QUNATUMLEAP INNOVATION INTERNATIONAL LTD («мы»). Оно помогает вести учёт подписок и повседневных трат, видеть расходы и получать напоминания перед списанием. Приложение бесплатное, в нём нет рекламы и встроенных покупок.</p>
+
+<h2>2. Лицензия</h2>
+<p>Мы предоставляем вам персональную, неисключительную и непередаваемую лицензию на использование приложения на устройствах Apple, которыми вы владеете или управляете, в соответствии с условиями App Store. Запрещается копировать, изменять, декомпилировать, распространять или продавать приложение, кроме случаев, прямо разрешённых применимым законодательством.</p>
+
+<h2>3. Ответственность за ваши данные</h2>
+<p>Всё, что вы вводите, остаётся на вашем устройстве и, по вашему выбору, в вашем аккаунте iCloud. У нас нет копии этих данных, и мы не сможем их восстановить.</p>
+<ul>
+  <li>Если вы удалите приложение, локальные данные будут удалены вместе с ним.</li>
+  <li>Если синхронизация с iCloud выключена, данные существуют только на одном устройстве.</li>
+  <li>Рекомендуем включить синхронизацию с iCloud или вести собственные записи для всего, что вы не хотели бы потерять.</li>
+</ul>
+
+<h2>4. Приложение не управляет вашими подписками</h2>
+<p>Это важно. Renevo — инструмент учёта и напоминаний. Он не подключён к вашему банку, карте или сервисам, на которые вы подписаны.</p>
+<ul>
+  <li>Приложение не может списать с вас деньги, оплатить что-либо, оформить или отменить подписку за вас.</li>
+  <li>Цифры в приложении отражают только то, что вы ввели. Это не банковская выписка.</li>
+  <li>Отметка подписки как отключённой в приложении ничего не меняет в самом сервисе. Отменять подписку нужно у сервиса самостоятельно.</li>
+  <li>Напоминания — вспомогательная функция. Не полагайтесь только на них, чтобы избежать списания.</li>
+</ul>
+
+<h2>5. Инструкции по отмене</h2>
+<p>В приложении есть общие инструкции и официальные ссылки для отмены популярных сервисов. Они приведены исключительно для удобства.</p>
+<ul>
+  <li>Мы не связаны с упомянутыми сервисами, не являемся их партнёрами и не действуем по их поручению. Названия используются только для обозначения сервиса.</li>
+  <li>Сервисы меняют сайты и процедуры без предупреждения, поэтому шаги и ссылки могут устареть или оказаться неверными.</li>
+  <li>Всегда проверяйте актуальный порядок отмены на сайте самого сервиса и сохраняйте подтверждение, которое он выдаёт.</li>
+</ul>
+
+<h2>6. Сканирование чеков</h2>
+<p>Сканирование использует распознавание текста на устройстве. Распознавание не идеально, особенно на мятых, выцветших или плохо освещённых чеках. Приложение показывает распознанные данные, чтобы вы проверили и исправили их перед сохранением. За точность сохранённых данных отвечаете вы.</p>
+
+<h2>7. Не финансовая консультация</h2>
+<p>Приложение показывает итоги, графики и оценки на основе введённых вами данных. Это не финансовая, налоговая, бухгалтерская или юридическая консультация. Пересчёт валют выполняется по курсам, которые вы вводите вручную, и служит только для приблизительных итогов; это не биржевые курсы в реальном времени. Решения, принятые на основе приложения, остаются вашими.</p>
+
+<h2>8. Предоставляется «как есть»</h2>
+<p>Приложение предоставляется «как есть» и «как доступно», без каких-либо гарантий, явных или подразумеваемых, включая подразумеваемые гарантии товарного состояния, пригодности для определённой цели, точности или отсутствия нарушений прав. Мы не гарантируем бесперебойную работу приложения, отсутствие ошибок или своевременную доставку напоминаний.</p>
+
+<h2>9. Ограничение ответственности</h2>
+<p>В максимальной степени, разрешённой законом, мы не несём ответственности за косвенные, случайные, специальные или последующие убытки, а также за потерю данных, прибыли или сбережений, возникшие в связи с использованием приложения или невозможностью его использования. Это включает списания, произошедшие из-за того, что напоминание не дошло или инструкция по отмене устарела. В некоторых юрисдикциях отдельные ограничения не допускаются, поэтому часть этого раздела может к вам не применяться; ничто здесь не ограничивает ответственность, которая не может быть ограничена по закону.</p>
+
+<h2>10. Изменения приложения и условий</h2>
+<p>Мы можем обновлять приложение, добавлять или удалять функции либо прекратить его публикацию в любой момент. Мы также можем изменять эти условия; дата вверху показывает, когда они менялись в последний раз. Продолжая пользоваться приложением после изменения, вы принимаете обновлённые условия.</p>
+
+<h2>11. Apple</h2>
+<p>Apple не является стороной этих условий и не обязана оказывать поддержку по приложению. Использование приложения также регулируется условиями обслуживания App Store. Apple и её дочерние компании являются третьими лицами — выгодоприобретателями по этим условиям и вправе требовать их исполнения.</p>
+
+<h2>12. Применимое право</h2>
+<p>Эти условия регулируются законодательством {{JURISDICTION}} без учёта коллизионных норм. Это не лишает вас защиты, предоставляемой императивными нормами законодательства о защите прав потребителей страны вашего проживания.</p>
+
+<h2>13. Контакты</h2>
+<p>Вопросы по этим условиям: <a href="mailto:qlinnovation@outlook.com">qlinnovation@outlook.com</a></p>
+
+<footer>
+  <p>Renevo · <a href="../">Главная</a> · <a href="../privacy/">Политика конфиденциальности</a> · <a href="../support/">Поддержка</a> · <a href="?lang=en" data-lang-switch>English version</a></p>
+</footer>
+
+</div>
+
+</div>
+</body>
+</html>
